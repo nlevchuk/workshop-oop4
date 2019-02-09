@@ -15,11 +15,3 @@ test('returns city if ip exists', async () => {
   const info = await geo.getInfoByIP('134.55.44.2');
   expect(info.getCity()).toEqual('Moscow');
 });
-
-test('throws an error', async () => {
-  const httpWithError = {
-    get: () => { throw new Error(); },
-  };
-  const geo = new GeoService(httpWithError);
-  await expect(geo.getInfoByIP('134.55.44.2')).rejects.toThrow();
-});

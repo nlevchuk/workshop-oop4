@@ -1,23 +1,26 @@
 import axios from 'axios';
 
+const site = 'http://ip-api.com/json';
+
+class GeoInfo {
+  constructor(info) {
+    this.info = info;
+  }
+
+  getCity() {
+    return this.info.city;
+  }
+}
+
 class GeoService {
   constructor(http = axios) {
-    this.site = 'http://ip-api.com/json';
     this.http = http;
   }
 
   async getInfoByIP(ip) {
-    try {
-      const { site, http } = this;
-      const url = `${site}/${ip}`;
-      const response = await http.get(url);
-      const info = response.data;
-      return {
-        getCity: () => info.city,
-      };
-    } catch (error) {
-      throw new Error('Error while execute request!');
-    }
+    const url = `${site}/${ip}`;
+    const response = await this.http.get(url);
+    return new GeoInfo(response.data);
   }
 }
 
