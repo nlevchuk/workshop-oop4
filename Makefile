@@ -2,7 +2,7 @@ install:
 	npm install
 
 run:
-	npx babel-node -- 'src/bin/start.js'
+	npx babel-node -- 'src/bin/get-geo.js'
 
 build:
 	rm -rf dist

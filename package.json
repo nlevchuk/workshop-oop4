@@ -29,7 +29,10 @@
     "testEnvironment": "node"
   },
   "homepage": "https://github.com/nlevchuk/workshop-oop4.git#readme",
-  "dependencies": {},
+  "dependencies": {
+    "axios": "^0.18.0",
+    "commander": "^2.19.0"
+  },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
     "@babel/core": "^7.2.2",
