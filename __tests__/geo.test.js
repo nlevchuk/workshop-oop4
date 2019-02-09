@@ -1,13 +1,25 @@
-import getGeo from '../src/get-geo';
+import GeoService from '../src/geo-service';
 
-test('get', async () => {
-  const options = [];
-  const parser = {
-    getIP: () => {},
+const http = {
+  get: () => ({ data: { city: 'Moscow' } }),
+};
+
+test('returns city if ip does not exist', async () => {
+  const geo = new GeoService(http);
+  const info = await geo.getInfoByIP('');
+  expect(info.getCity()).toEqual('Moscow');
+});
+
+test('returns city if ip exists', async () => {
+  const geo = new GeoService(http);
+  const info = await geo.getInfoByIP('134.55.44.2');
+  expect(info.getCity()).toEqual('Moscow');
+});
+
+test('throws an error', async () => {
+  const httpWithError = {
+    get: () => { throw new Error(); },
   };
-  const http = {
-    get: () => {},
-  };
-  const geo = await getGeo(options, parser, http);
-  expect(geo).toEqual();
+  const geo = new GeoService(httpWithError);
+  await expect(geo.getInfoByIP('134.55.44.2')).rejects.toThrow();
 });
